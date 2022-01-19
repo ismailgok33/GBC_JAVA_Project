@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
 	
-	public static int score = 0;
+	private static int score = 0;
 	
 	public static void main(String[] args) {
 		
@@ -20,6 +20,7 @@ public class Main {
 		// TODO: make this selection a method or a nicer way. No copies !!
 		selectedMenuItem = sc.nextInt();
 		
+		// TODO : Change the nextInt so that a letter does not crush the code !!
 		
 		if(selectedMenuItem == 1) { // Start the game
 			menuSelected = true;
@@ -48,7 +49,7 @@ public class Main {
 		
 		while(!menuSelected) {
 			System.out.println("Wrong input! Please type a correct number from the menu.");
-			System.out.println("Press '1' for Start Game. \n Press '2' for Results of Previous Games. \n Press '3' for Exit");
+			System.out.println("Press '1' for Start Game. \nPress '2' for Results of Previous Games. \nPress '3' for Exit");
 			System.out.println("");
 			
 			selectedMenuItem = sc.nextInt();
