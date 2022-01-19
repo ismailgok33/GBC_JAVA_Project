@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class SecretWord {
 	
 	private String actualWord;
-	private String wordState;
+	private String wordState = "";
 	private ArrayList<Character> correctGuesses; // TODO: Could be an ArrayList or a String
 	
 	// Constructor
@@ -12,8 +12,9 @@ public class SecretWord {
 		this.actualWord = actualWord;
 		
 		for(int i = 0; i < actualWord.length(); i++) {
-			wordState += "_";
+			wordState += "_ ";
 		}
+		wordState = wordState.substring(0, wordState.length() - 1); // removes the last whitespace
 		
 		this.correctGuesses = new ArrayList<Character>();
 	}
@@ -47,11 +48,11 @@ public class SecretWord {
 	// Methods
 	
 	public boolean containsLetter(char letter) {
-		return actualWord.contains(letter + "");
+		return actualWord.toUpperCase().contains(letter + "");
 	}
 	
 	public boolean hasLettersRemaning() {
-		return !actualWord.equalsIgnoreCase(wordState);
+		return !actualWord.equalsIgnoreCase(wordState.replaceAll("\\s+",""));
 	}
 	
 	public String toString() {
@@ -65,7 +66,7 @@ public class SecretWord {
 			if(c == correctLetter) {
 				wordState = wordState.substring(0, i) + c + wordState.substring(i + 1);
 			}
-			i++;
+			i = i + 2;
 		}
 	}
 	

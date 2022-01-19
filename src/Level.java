@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Level {
+public class Level implements Cloneable {
 
 	// Properties
 	
@@ -85,17 +85,18 @@ public class Level {
 	
 	public boolean checkGuesses(char guessedLetter) {
 		
-		if(secretWord.containsLetter(guessedLetter)) {
-			
+		char capitalGuessedLetter = Character.toUpperCase(guessedLetter);
+
+		if(secretWord.containsLetter(capitalGuessedLetter)) {
 			// TODO: update the state of the secretWord accordingly
 			ArrayList<Character> correctGuesses = secretWord.getCorrectGuesses();
-			if(!correctGuesses.contains(guessedLetter)) {
-				correctGuesses.add(guessedLetter);
+			if(!correctGuesses.contains(capitalGuessedLetter)) {
+				correctGuesses.add(capitalGuessedLetter);
 				secretWord.setCorrectGuesses(correctGuesses);
-				secretWord.calculateWordState(guessedLetter);
+				secretWord.calculateWordState(capitalGuessedLetter);
 			}
 			else {
-				System.out.println("You already guessed " + guessedLetter + " before");
+				System.out.println("You already guessed " + capitalGuessedLetter + " before");
 			}
 			
 			return true;
@@ -109,6 +110,10 @@ public class Level {
 	
 	public boolean isWordGuessed() {
 		return !secretWord.hasLettersRemaning();
+	}
+	
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 	
 }
