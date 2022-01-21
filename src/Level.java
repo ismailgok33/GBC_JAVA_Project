@@ -74,18 +74,20 @@ public class Level implements Cloneable {
 	public String toString() {
 		
 		if(debugOn) {
-			return "Level: " + levelNumber + ", Chances Remaining: " 
-			+ chancesRemaining + ", Secret Word: " + secretWord.getWordState() 
-			+ ", Actual Word: " + secretWord.getActualWord();
+			return "Current Level: " + levelNumber + "\nChances Remaining: " 
+			+ chancesRemaining + "\nSecret Word: " + secretWord.getWordState() 
+			+ "\nActual Word: " + secretWord.getActualWord();
 		}
 		
-		return "Level: " + levelNumber + ", Chances Remaining: " 
-				+ chancesRemaining + ", Secret Word: " + secretWord.getWordState();
+		return "Current Level: " + levelNumber + "\nChances Remaining: " 
+				+ chancesRemaining + "\nSecret Word: " + secretWord.getWordState();
 	}
 	
 	public boolean checkGuesses(char guessedLetter) {
 		
 		char capitalGuessedLetter = Character.toUpperCase(guessedLetter);
+
+		System.out.println("You guessed " + guessedLetter);
 
 		if(secretWord.containsLetter(capitalGuessedLetter)) {
 			// TODO: update the state of the secretWord accordingly
@@ -94,6 +96,7 @@ public class Level implements Cloneable {
 				correctGuesses.add(capitalGuessedLetter);
 				secretWord.setCorrectGuesses(correctGuesses);
 				secretWord.calculateWordState(capitalGuessedLetter);
+				System.out.println("The letter " + guessedLetter + " is in the secret word");
 			}
 			else {
 				System.out.println("You already guessed " + capitalGuessedLetter + " before");
@@ -103,6 +106,7 @@ public class Level implements Cloneable {
 		}
 		else {
 			chancesRemaining--;
+			System.out.println("The letter " + guessedLetter + " is NOT in the secret word");
 			return false;
 		}
 		

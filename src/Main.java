@@ -5,72 +5,25 @@ import java.util.Scanner;
 public class Main {
 	
 	private static int score = 0;
+	private static Level[] levels = null;
+	private static ArrayList<PreviousGameResult> previousResults = new ArrayList<PreviousGameResult>();
 	
 	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
-		Level[] levels = null;
+		PreviousGameResult result;
 		boolean menuSelected = false;
-		int selectedMenuItem = 0;
 		
 		System.out.println("Welcome to the word guessing game. Please select one item from the menu...");
-		System.out.println("Press '1' for Start Game. \nPress '2' for Results of Previous Games. \nPress '3' for Exit");
-		System.out.println("");
-		
-		// TODO: make this selection a method or a nicer way. No copies !!
-		selectedMenuItem = sc.nextInt();
-		
-		// TODO : Change the nextInt so that a letter does not crush the code !!
-		
-		if(selectedMenuItem == 1) { // Start the game
-			menuSelected = true;
-			levels = chooseLevelsRandomly();
-			
-			for(int i = 0; i < levels.length; i++) {
-				System.out.println("DEBUG: The Score for level " + i + " is " + score);
-				score += startTheGame(levels[i], score);
-			}
-			
-			gameOver(true); // The game has been won
-			
-		}
-		else if(selectedMenuItem == 2) { // Show previous scores
-			menuSelected = true;
-			// TODO : Previous games
-		}
-		else if(selectedMenuItem == 3) { // Exit
-			menuSelected = true;
-			System.out.println("Good bye.");
-			System.exit(0);
-		}
-		else {
-			menuSelected = false;
-		}
 		
 		while(!menuSelected) {
-			System.out.println("Wrong input! Please type a correct number from the menu.");
-			System.out.println("Press '1' for Start Game. \nPress '2' for Results of Previous Games. \nPress '3' for Exit");
-			System.out.println("");
 			
-			selectedMenuItem = sc.nextInt();
+			menuSelected = askMenuInput();
 			
-			if(selectedMenuItem == 1) { // Start the game
-				menuSelected = true;
-				levels = chooseLevelsRandomly();
+			if(!menuSelected) {
+				System.out.println("Wrong input! Please type a correct number from the menu.");
+
 			}
-			else if(selectedMenuItem == 2) { // Show previous scores
-				menuSelected = true;
-				// TODO : Previous games
-			}
-			else if(selectedMenuItem == 3) { // Exit
-				menuSelected = true;
-				System.out.println("Good bye.");
-				System.exit(0);
-			}
-			else {
-				menuSelected = false;
-			}
-			
 		}
 		
 	}
@@ -87,31 +40,32 @@ public class Main {
 			guessedLetter = s.next().charAt(0);
 			System.out.println("");
 			isGuessCorrect = level.checkGuesses(guessedLetter);
-			System.out.println("You guessed " + guessedLetter);
 			
-			if(isGuessCorrect) {
-				System.out.println("The letter " + guessedLetter + " is in the secret word");
-			}
-			else {
-				System.out.println("The letter " + guessedLetter + " is NOT in the secret word");
-			}
+//			System.out.println("You guessed " + guessedLetter);
+			
+//			if(isGuessCorrect) {
+//				System.out.println("The letter " + guessedLetter + " is in the secret word");
+//			}
+//			else {
+//				System.out.println("The letter " + guessedLetter + " is NOT in the secret word");
+//			}
 			
 			if(level.getChancesRemaining() <= 0) {
-//				System.out.println("LOSE. You are out of guesses. You couldn't guess the word!");
+				System.out.println("");
 				gameOver(false); // The game is lost
 			}
 		}
 		
+		System.out.println("");
 		System.out.println("CONGRATULATIONS. You guessed the secret word!");
 		return score + level.getChancesRemaining();
 	}
 	
 	private static void gameDisplayInfo(Level level) {
 		System.out.println("--------------------------------------------------");
-//		System.out.println("Welcome to the level " + level.getLevelNumber());
-		System.out.println("Level is " + level.getLevelNumber());
 		System.out.println("Your current score is " + score);
 		System.out.println(level.toString());
+		System.out.println("");
 	}
 	
 	private static void gameOver(boolean win) {
@@ -210,6 +164,57 @@ public class Main {
 		allLevels[9] = tenthLevel;
 		
 		return allLevels;
+	}
+	
+	private static boolean askMenuInput() {
+		
+		// TODO : make sure the program does not crush when input a letter
+		
+		Scanner sc = new Scanner(System.in);
+		int selectedMenuItem = 0;
+		boolean menuSelected = false;
+		
+		System.out.println("Press '1' for Start Game. \nPress '2' for Results of Previous Games. \nPress '3' for Exit");
+		System.out.println("");
+		
+		selectedMenuItem = sc.nextInt();
+		
+		if(selectedMenuItem == 1) { // Start the game
+			menuSelected = true;
+			levels = chooseLevelsRandomly();
+			
+			for(int i = 0; i < levels.length; i++) {
+				System.out.println("");
+				System.out.println("Welcome to Level " + (i + 1));
+				System.out.println("Current score is " + score + " point");
+				System.out.println("");
+				score += startTheGame(levels[i], score);
+			}
+			
+			gameOver(true); // The game has been won
+		}
+		else if(selectedMenuItem == 2) { // Show previous scores
+			menuSelected = true;
+			
+			if(previousResults.size() > 0) {
+				for(PreviousGameResult game : previousResults) {
+					System.out.println(game.toString());
+				}
+			}
+			else {
+				System.out.println("You don't have any previous games to show.");
+			}
+		}
+		else if(selectedMenuItem == 3) { // Exit
+			menuSelected = true;
+			System.out.println("Good bye.");
+			System.exit(0);
+		}
+		else {
+			menuSelected = false;
+		}
+		
+		return menuSelected;
 	}
 	
 }
