@@ -10,21 +10,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		Scanner sc = new Scanner(System.in);
-		PreviousGameResult result;
-		boolean menuSelected = false;
-		
-		System.out.println("Welcome to the word guessing game. Please select one item from the menu...");
-		
-		while(!menuSelected) {
-			
-			menuSelected = askMenuInput();
-			
-			if(!menuSelected) {
-				System.out.println("Wrong input! Please type a correct number from the menu.");
-
-			}
-		}
+		welcomeMessage();
 		
 	}
 	
@@ -41,24 +27,15 @@ public class Main {
 			System.out.println("");
 			isGuessCorrect = level.checkGuesses(guessedLetter);
 			
-//			System.out.println("You guessed " + guessedLetter);
-			
-//			if(isGuessCorrect) {
-//				System.out.println("The letter " + guessedLetter + " is in the secret word");
-//			}
-//			else {
-//				System.out.println("The letter " + guessedLetter + " is NOT in the secret word");
-//			}
-			
 			if(level.getChancesRemaining() <= 0) {
 				System.out.println("");
-				gameOver(false); // The game is lost
+				gameOver(false); // The game is lost	
 			}
 		}
 		
 		System.out.println("");
 		System.out.println("CONGRATULATIONS. You guessed the secret word!");
-		return score + level.getChancesRemaining();
+		return level.getChancesRemaining();
 	}
 	
 	private static void gameDisplayInfo(Level level) {
@@ -78,7 +55,13 @@ public class Main {
 		}
 		
 		System.out.println("Your SCORE is " + score);
-		System.exit(0);
+		
+		PreviousGameResult gameResult = new PreviousGameResult(score);
+		previousResults.add(gameResult);
+		
+		score = 0;
+
+		welcomeMessage();
 	}
 	
 	private static Level[] chooseLevelsRandomly() {
@@ -204,6 +187,8 @@ public class Main {
 			else {
 				System.out.println("You don't have any previous games to show.");
 			}
+			
+			welcomeMessage();
 		}
 		else if(selectedMenuItem == 3) { // Exit
 			menuSelected = true;
@@ -215,6 +200,23 @@ public class Main {
 		}
 		
 		return menuSelected;
+	}
+	
+	private static void welcomeMessage() {
+		
+		boolean menuSelected = false;
+		System.out.println("\n");
+		System.out.println("Welcome to the word guessing game. Please select one item from the menu...");
+		
+		while(!menuSelected) {
+			
+			menuSelected = askMenuInput();
+			
+			if(!menuSelected) {
+				System.out.println("Wrong input! Please type a correct number from the menu.");
+
+			}
+		}
 	}
 	
 }
