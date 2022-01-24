@@ -160,7 +160,12 @@ public class Main {
 		System.out.println("Press '1' for Start Game. \nPress '2' for Results of Previous Games. \nPress '3' for Exit");
 		System.out.println("");
 		
-		selectedMenuItem = sc.nextInt();
+		try {
+			selectedMenuItem = sc.nextInt();
+		}catch(Exception e) {
+			System.out.println("Please input a number between 1 - 3.\n");
+			return false;
+		}
 		
 		if(selectedMenuItem == 1) { // Start the game
 			menuSelected = true;
@@ -197,6 +202,7 @@ public class Main {
 			System.exit(0);
 		}
 		else {
+			System.out.println("Please input a number between 1 - 3.\n");
 			menuSelected = false;
 		}
 		
