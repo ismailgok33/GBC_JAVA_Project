@@ -34,7 +34,7 @@ public class Main {
 		}
 		
 		System.out.println("");
-		System.out.println("CONGRATULATIONS. You guessed the secret word!");
+		System.out.println("GREAT. You guessed the secret word!");
 		return level.getChancesRemaining();
 	}
 	
@@ -180,6 +180,7 @@ public class Main {
 			menuSelected = true;
 			
 			if(previousResults.size() > 0) {
+				System.out.println("Your previous games are listed below...");
 				for(PreviousGameResult game : previousResults) {
 					System.out.println(game.toString());
 				}
