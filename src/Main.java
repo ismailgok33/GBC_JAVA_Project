@@ -80,7 +80,6 @@ public class Main {
 		
 		for(int i = 0; i < selectedLevels.length; i++) {
 			Level level = allLevels[list.get(i)];
-			System.out.println("DEBUG: secret word of the level is " + level.getSecretWord().getActualWord());
 			level.setLevelNumber(i + 1);
 			try {
 				selectedLevels[i] = (Level)level.clone();
@@ -94,56 +93,57 @@ public class Main {
 	
 	private static Level[] createLevels() {
 		
+		boolean debug = false;
 		Level[] allLevels = new Level[10];
 		
 		// Level 1
 		SecretWord firstSW = new SecretWord("LONDON");
-		Level firstLevel = new Level(0, 5, firstSW, false);
+		Level firstLevel = new Level(0, 5, firstSW, debug);
 		allLevels[0] = firstLevel;
 		
 		// Level 2
 		SecretWord secondSW = new SecretWord("TORONTO");
-		Level secondLevel = new Level(0, 5, secondSW, false);
+		Level secondLevel = new Level(0, 5, secondSW, debug);
 		allLevels[1] = secondLevel;
 		
 		// Level 3
 		SecretWord thirdSW = new SecretWord("PARIS");
-		Level thirdLevel = new Level(0, 5, thirdSW, false);
+		Level thirdLevel = new Level(0, 5, thirdSW, debug);
 		allLevels[2] = thirdLevel;
 		
 		// Level 4
 		SecretWord forthSW = new SecretWord("OTTOWA");
-		Level forthLevel = new Level(0, 5, forthSW, false);
+		Level forthLevel = new Level(0, 5, forthSW, debug);
 		allLevels[3] = forthLevel;
 		
 		// Level 5
 		SecretWord fifthSW = new SecretWord("CHICAGO");
-		Level fifthLevel = new Level(0, 5, fifthSW, false);
+		Level fifthLevel = new Level(0, 5, fifthSW, debug);
 		allLevels[4] = fifthLevel;
 		
 		// Level 6
 		SecretWord sixthSW = new SecretWord("HAWAII");
-		Level sixthLevel = new Level(0, 5, sixthSW, false);
+		Level sixthLevel = new Level(0, 5, sixthSW, debug);
 		allLevels[5] = sixthLevel;
 		
 		// Level 6
 		SecretWord seventhSW = new SecretWord("BUDAPEST");
-		Level seventhLevel = new Level(0, 5, seventhSW, false);
+		Level seventhLevel = new Level(0, 5, seventhSW, debug);
 		allLevels[6] = seventhLevel;
 		
 		// Level 6
 		SecretWord eighthSW = new SecretWord("BRASIL");
-		Level eighthLevel = new Level(0, 5, eighthSW, false);
+		Level eighthLevel = new Level(0, 5, eighthSW, debug);
 		allLevels[7] = eighthLevel;
 		
 		// Level 6
 		SecretWord ninthSW = new SecretWord("BARCELONA");
-		Level ninthLevel = new Level(3, 5, ninthSW, false);
+		Level ninthLevel = new Level(3, 5, ninthSW, debug);
 		allLevels[8] = ninthLevel;
 		
 		// Level 6
 		SecretWord tenthSW = new SecretWord("TOKYO");
-		Level tenthLevel = new Level(0, 5, tenthSW, false);
+		Level tenthLevel = new Level(0, 5, tenthSW, debug);
 		allLevels[9] = tenthLevel;
 		
 		return allLevels;
