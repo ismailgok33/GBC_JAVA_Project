@@ -27,6 +27,13 @@ public class Main {
 			System.out.println("");
 			isGuessCorrect = level.checkGuesses(guessedLetter);
 			
+			if(isGuessCorrect) {
+				System.out.println("The letter " + guessedLetter + " is in the secret word");
+			}
+			else {
+				System.out.println("The letter " + guessedLetter + " is NOT in the secret word");
+			}
+			
 			if(level.getChancesRemaining() <= 0) {
 				System.out.println("");
 				gameOver(false); // The game is lost	
